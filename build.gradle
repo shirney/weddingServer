@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'application'
+
+//mainClassName = 'DriveQuickstart'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo1.maven.org/maven2/"}
+    maven { url "http://central.maven.org/maven2/"}
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+//    compile 'com.google.api-client:google-api-client:1.20.0'
+//    compile 'com.google.oauth-client:google-oauth-client-jetty:1.20.0'
+//    compile 'com.google.apis:google-api-services-drive:v2-rev170-1.20.0'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.mongodb:mongo-java-driver:2.13.2")
+    compile("commons-httpclient:commons-httpclient:3.1")
+    compile("org.json:json:20141113")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+buildscript {
+    repositories {
+        maven { url "http://repo1.maven.org/maven2/"}
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
