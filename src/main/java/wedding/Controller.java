@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
 
 @RestController
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan("wedding")
 @Configuration
 public class Controller {
 

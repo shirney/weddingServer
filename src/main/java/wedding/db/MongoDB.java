@@ -5,6 +5,10 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -12,19 +16,20 @@ import java.util.Arrays;
 /**
  * Created by Shirney on 15/8/21.
  */
+@Service
 public class MongoDB {
-    @Value("db.name")
-    private static String dbName;
+    @Value("${db.name}")
+    private String dbName;
 
-    private static DB db;
+    private DB db;
 
-    @Value("db.account")
-    private static String account;
+    @Value("${db.account}")
+    private String account;
 
-    @Value("db.password")
-    private static String password;
+    @Value("${db.password}")
+    private String password;
 
-    public static DB getDB() throws UnknownHostException {
+    public DB getDB() throws UnknownHostException {
         if(db == null) {
             MongoCredential credential = MongoCredential.createCredential(account,
                     dbName,
