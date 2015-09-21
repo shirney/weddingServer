@@ -39,6 +39,10 @@ public class GuestDBQuery extends BasicDBObject {
         this.append(Guest.ADDRESS_FIELD, address);
     }
 
+    public void setEmailAddress(String email) {
+        this.append(Guest.EMAIL_ADDRESS_FIELD, email);
+    }
+
     public void setComment(String comment) {
         this.append(Guest.COMMENT_FIELD, comment);
     }

@@ -14,13 +14,13 @@ public class Guest {
     public static String CHILDREN_FIELD = "children";
     public static String INVITATION_TYPE_FIELD = "invitationType";
     public static String ADDRESS_FIELD = "address";
+    public static String EMAIL_ADDRESS_FIELD = "emailAddress";
     public static String COMMENT_FIELD = "comment";
 
     public enum InvitationType {
-        on,
-        off,
-        Physical,
-        Email;
+        none,
+        mail,
+        email;
     }
 
     @JsonIgnore
@@ -36,9 +36,11 @@ public class Guest {
 
     private int vegetarians = 0;
 
-    private InvitationType invitationType = InvitationType.on;
+    private InvitationType invitationType = InvitationType.none;
 
     private String address = "";
+
+    private String emailAddress = "";
 
     private String comment = "";
 
@@ -115,6 +117,14 @@ public class Guest {
         this.vegetarians = vegetarians;
     }
 
+    public static String getEmailAddressField() {
+        return EMAIL_ADDRESS_FIELD;
+    }
+
+    public static void setEmailAddressField(String emailAddressField) {
+        EMAIL_ADDRESS_FIELD = emailAddressField;
+    }
+
     @JsonIgnore
     public GuestDBQuery buildDBObject() {
         final GuestDBQuery dbObject = new GuestDBQuery();
@@ -127,6 +137,7 @@ public class Guest {
         dbObject.setComment(this.comment);
         dbObject.setInvitationType(this.invitationType);
         dbObject.setVegetarians(this.vegetarians);
+        dbObject.setEmailAddress(this.emailAddress);
         return dbObject;
     }
 }
