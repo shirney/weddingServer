@@ -29,12 +29,15 @@ public class MongoDB {
     @Value("${db.password}")
     private String password;
 
+    @Value("${db.host}")
+    private String dbHost;
+
     public DB getDB() throws UnknownHostException {
         if(db == null) {
             MongoCredential credential = MongoCredential.createCredential(account,
                     dbName,
                     password.toCharArray());
-            MongoClient mongoClient = new MongoClient(new ServerAddress(), Arrays.asList(credential));
+            MongoClient mongoClient = new MongoClient(new ServerAddress(this.dbHost), Arrays.asList(credential));
 //            MongoClient mongoClient = new MongoClient();
             db = mongoClient.getDB(dbName);
         }

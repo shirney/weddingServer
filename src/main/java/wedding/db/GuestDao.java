@@ -43,7 +43,7 @@ public class GuestDao {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return result == null ? "" : result.toString();
+        return result == null ? "{}" : result.toString();
     }
 
     public DBCollection getCollection() throws UnknownHostException {
