@@ -61,11 +61,11 @@ public class Guest {
         this.name = name;
     }
 
-    public boolean isComing() {
+    public boolean getIsComing() {
         return isComing;
     }
 
-    public void setComing(boolean isComing) {
+    public void setIsComing(boolean isComing) {
         this.isComing = isComing;
     }
 
@@ -117,12 +117,12 @@ public class Guest {
         this.vegetarians = vegetarians;
     }
 
-    public static String getEmailAddressField() {
-        return EMAIL_ADDRESS_FIELD;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public static void setEmailAddressField(String emailAddressField) {
-        EMAIL_ADDRESS_FIELD = emailAddressField;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     @JsonIgnore
