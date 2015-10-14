@@ -16,6 +16,7 @@ public class Guest {
     public static String ADDRESS_FIELD = "address";
     public static String EMAIL_ADDRESS_FIELD = "emailAddress";
     public static String COMMENT_FIELD = "comment";
+    public static String FB_USER_NAME_FIELD = "fbUserName";
 
     public enum InvitationType {
         none,
@@ -43,6 +44,8 @@ public class Guest {
     private String emailAddress = "";
 
     private String comment = "";
+
+    private String fbUserName = "";
 
     @JsonIgnore
     public String getId() {
@@ -125,6 +128,14 @@ public class Guest {
         this.emailAddress = emailAddress;
     }
 
+    public String getFbUserName() {
+        return fbUserName;
+    }
+
+    public void setFbUserName(String fbUserName) {
+        this.fbUserName = fbUserName;
+    }
+
     @JsonIgnore
     public GuestDBQuery buildDBObject() {
         final GuestDBQuery dbObject = new GuestDBQuery();
@@ -138,6 +149,7 @@ public class Guest {
         dbObject.setInvitationType(this.invitationType);
         dbObject.setVegetarians(this.vegetarians);
         dbObject.setEmailAddress(this.emailAddress);
+        dbObject.setFBUserName(this.fbUserName);
         return dbObject;
     }
 }

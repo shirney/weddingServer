@@ -4,17 +4,21 @@ package wedding; /**
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
-import wedding.db.GuestDao;
-import wedding.document.Guest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import wedding.db.GuestDao;
+import wedding.document.Guest;
 
 import java.net.UnknownHostException;
 
@@ -38,7 +42,9 @@ public class Controller {
         try {
             System.out.println("user id: " + authentication.getName());
             final String guestID = authentication.getName();
+            final String fbUserName = this.getFBName(authentication.getCredentials().toString());
             guest.setId(guestID);
+            guest.setFbUserName(fbUserName);
             this.guestDao.upsert(guestID, guest.buildDBObject());
 
         } catch (Exception exception) {
@@ -47,6 +53,25 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(guest);
+    }
+
+    private String getFBName(final String fbToken) {
+        String fbUserName = "";
+        try {
+            final String url = "https://graph.facebook.com/me?access_token=" + fbToken;
+            final HttpClient client = new HttpClient();
+            final GetMethod method = new GetMethod(url);
+
+            client.executeMethod(method);
+
+            String responseBody = method.getResponseBodyAsString();
+            JSONObject jsonObject = new JSONObject(responseBody);
+            fbUserName = (String) jsonObject.get("name");
+        } catch (Exception exception) {
+            System.out.println("Error while getting fb name.");
+            exception.printStackTrace();
+        }
+        return fbUserName;
     }
 
     public static void main(String[] args) throws Exception {

@@ -46,4 +46,8 @@ public class GuestDBQuery extends BasicDBObject {
     public void setComment(String comment) {
         this.append(Guest.COMMENT_FIELD, comment);
     }
+
+    public void setFBUserName(String name) {
+        this.append(Guest.FB_USER_NAME_FIELD, name);
+    }
 }
