@@ -42,9 +42,7 @@ public class Controller {
         try {
             System.out.println("user id: " + authentication.getName());
             final String guestID = authentication.getName();
-            final String fbUserName = this.getFBName(authentication.getCredentials().toString());
             guest.setId(guestID);
-            guest.setFbUserName(fbUserName);
             this.guestDao.upsert(guestID, guest.buildDBObject());
 
         } catch (Exception exception) {
@@ -53,25 +51,6 @@ public class Controller {
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(guest);
-    }
-
-    private String getFBName(final String fbToken) {
-        String fbUserName = "";
-        try {
-            final String url = "https://graph.facebook.com/me?access_token=" + fbToken;
-            final HttpClient client = new HttpClient();
-            final GetMethod method = new GetMethod(url);
-
-            client.executeMethod(method);
-
-            String responseBody = method.getResponseBodyAsString();
-            JSONObject jsonObject = new JSONObject(responseBody);
-            fbUserName = (String) jsonObject.get("name");
-        } catch (Exception exception) {
-            System.out.println("Error while getting fb name.");
-            exception.printStackTrace();
-        }
-        return fbUserName;
     }
 
     public static void main(String[] args) throws Exception {

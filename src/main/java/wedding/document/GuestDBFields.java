@@ -18,6 +18,7 @@ public class GuestDBFields extends BasicDBObject {
         this.put(Guest.NAME_FIELD, 1);
         this.put(Guest.VEGETARIANS_FIELD, 1);
         this.put(Guest.EMAIL_ADDRESS_FIELD, 1);
+        this.put(Guest.FB_USER_NAME_FIELD, 1);
         this.put("_id", 0);
     }
 }
